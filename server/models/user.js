@@ -18,11 +18,15 @@ const userSchema = new mongoose.Schema({
     image : {
         type : String
     },
+    fromGoogle: {
+        type: Boolean,
+        default: false,
+    },
     subscribers : {
         type : Number,
         default : 0
     },
-    nsubscribedUsers : {
+    subscribedUsers : {
         type : [String],
     },
 }, {timestamps : true})
