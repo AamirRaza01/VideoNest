@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import { errorHandler } from "../errorHandler.js";
 import jwt from "jsonwebtoken";
-import user from "../models/user.js";
+import user from "../models/User.js";
 
 export const signup = async (req, res, next) => {
 
@@ -37,7 +37,7 @@ export const signin = async (req, res, next) => {
       .status(200)
       .json(others);
   } catch (err) {
-    console.error("Signin error:", err);
+    console.error("Signin error:", err);  
     next(err);
   }
 };

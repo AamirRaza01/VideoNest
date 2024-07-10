@@ -1,5 +1,5 @@
 import { errorHandler } from "../errorHandler.js";
-import user from "../models/user.js";
+import user from "../models/User.js";
 import videoModel from "../models/video.js";
 
 export const update = async (req, res, next) => {
@@ -26,19 +26,21 @@ export const deleteUser = async (req, res, next) => {
   if (req.params.id === req.user.id) {
     try {
       await user.findByIdAndDelete(req.params.id);
+      // req.cookies("access_token", "");
       res.status(200).json("User has been deleted.");
     } catch (err) {
       next(err);
     }
   } else {
-    return next(createError(403, "You can delete only your account!"));
+    return next(errorHandler(403, "You can delete only your account!"));
   }
 };
 
 export const getUser = async (req, res, next) => {
   try {
-    const user = await user.findById(req.params.id);
-    res.status(200).json(user);
+    const foundUser = await user.findById(req.params.id);
+    const { password, ...others } = foundUser._doc;
+    res.status(200).json(others);
   } catch (err) {
     next(err);
   }
